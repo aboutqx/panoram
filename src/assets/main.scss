@@ -1,0 +1,357 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+body {
+    background: #1b1b1b;
+}
+
+#canvas-container {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+#canvas-container>canvas {
+    width: 400px;
+    height: 300px;
+    transition: opacity 1.3s;
+    opacity: 0;
+}
+#css3d-container{
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+}
+.clickable {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+#css3d-container>div:first-of-type {
+    pointer-events: none;
+}
+
+.progress-bar {
+    color: #f7f7f7;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    z-index: 100;
+    display: none;
+}
+
+.control-mode {
+    position: absolute;
+    bottom: 29px;
+    left: 25px;
+    background: rgba(255, 255, 255, .5);
+    color:#333;
+    padding: 4px 6px;
+}
+#hotspot-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+a{
+    text-decoration: none;
+}
+#hotspot-dialog a {
+    --interval: 1s;
+    display: block;
+    text-shadow: 0 0 10px var(--color1), 0 0 20px var(--color2), 0 0 40px var(--color3), 0 0 80px var(--color4);
+    will-change: filter, color;
+    filter: saturate(60%);
+    animation: flicker steps(100) var(--interval) 1s infinite;
+    color: azure;
+    --color1: azure;
+    --color2: aqua;
+    --color3: dodgerblue;
+    --color4: blue;
+    font-family: Sriracha;
+    font-size: calc(1em + 3vmax);
+}
+
+@keyframes flicker {
+    50% {
+        color: white;
+        filter: saturate(200%) hue-rotate(20deg);
+    }
+}
+
+#hotspot-back{
+    background: rgba(255, 255, 255, 0.5);
+    width:0;
+    height:0;
+    transition: width 0.5s ease-in,
+    height 0.5s ease-in;
+    &.active{
+        transition: width 0.8s ease-out,
+        height 0.8s ease-out;
+    }
+    &.inverted {
+        background: rgba(0, 0, 0, 0.5);
+    }
+    
+}
+video{
+    width:100%;
+    height:100%;
+    pointer-events: auto;
+}
+#hotpspot-dialog{
+    padding:20px 38px 20px 30px;
+    box-sizing: border-box;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity  0.5s ease-in;
+    line-height: 1.5;
+    &.active{
+        opacity: 1;
+        transition: opacity 1s 0.5s ease-out;
+    }
+    &.inverted {
+        color: #fff;
+    }
+    img{
+        width:100%;
+        position: absolute;
+    }
+    #closeX {
+        top: 0;
+        left: 0;
+    }
+}
+svg {
+    display: block;
+}
+.close-x {
+    stroke: rgb(56, 73, 165);
+    fill: transparent;
+    stroke-linecap: round;
+    stroke-width: 2;
+    
+}
+#vr-control{
+    position: absolute;
+    bottom:36px;
+    right:100px;
+    color: rgba(255, 255, 255, .8);
+    cursor: pointer;
+    &.active{
+        text-shadow: 0 0 10px var(--color1),
+        0 0 20px var(--color2),
+        0 0 40px var(--color3),
+        0 0 80px var(--color4);
+        --color1: azure;
+        --color2: aqua;
+        --color3: dodgerblue;
+        --color4: blue;
+    }
+}
+#full-screen{
+    position: absolute;
+    bottom:30px;
+    right:35px;
+    width: 30px;
+    stroke:transparent;
+    fill: rgba(255, 255, 255, .8);
+    cursor: pointer;
+    padding: 5px;
+    #open{
+        display:none;
+    }
+}
+#closeX {
+    margin: 16px;
+    background: #fff;
+    border-radius: 50%;
+    width:14px;
+    cursor: pointer;
+    pointer-events: auto;
+    position: absolute;
+
+    &:hover .close-x {
+        stroke: #000000;
+    }
+}
+.hotspot{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:999;
+    text-align:center;
+    line-height:24px;
+    
+    cursor:pointer;
+    background:url(../img/pack.png) 0 0;
+    animation:back-repeat 1.8s steps(1, end) infinite reverse;
+    border-radius:50%;
+    
+}
+@keyframes back-repeat {
+    0% {
+        background-position: 0 0;
+    }
+    5% {
+        background-position: 0 64px;
+    }
+    10% {
+        background-position: 0 64px*2;
+    }
+    15% {
+        background-position: 0 64px*3;
+    }
+    20% {
+        background-position: 0 64px*4;
+    }
+    25% {
+        background-position: 0 64px*5;
+    }
+    30% {
+        background-position: 0 64px*6;
+    }
+    35% {
+        background-position: 0 64px*7;
+    }
+    40% {
+        background-position: 0 64px*8;
+    }
+    45% {
+        background-position: 0 64px*9;
+    }
+    50% {
+        background-position: 0 64px*10;
+    }
+    55% {
+        background-position: 0 64px*11;
+    }
+    60% {
+        background-position: 0 64px*12;
+    }
+    65% {
+        background-position: 0 64px*13;
+    }
+    70% {
+        background-position: 0 64px*14;
+    }
+    75% {
+        background-position: 0 64px*15;
+    }
+    80% {
+        background-position: 0 64px*16;
+    }
+    85% {
+        background-position: 0 64px*17;
+    }
+    90% {
+        background-position: 0 64px*18;
+    }
+    95%{
+        background-position: 0 1216px;
+    }
+    100% {
+        
+    }
+}
+#wave {
+    height: 30px;
+    width: 30px;
+    fill: #fff;
+    position: absolute;
+    top: 55px;
+    right: 38px;
+    cursor: pointer;
+    padding: 5px;
+}
+@media only screen and (max-width: 940px){
+    #wave {
+        top:40px;
+    }
+    #hotspot-dialog #closeX{
+        padding: 2px;
+        top: -4px;
+    }
+}
+
+.active #Line_1 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 0.15s;
+}
+
+.active #Line_2 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 0.3s;
+}
+
+.active #Line_3 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 0.45s;
+}
+
+.active #Line_4 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 0.6s;
+}
+
+.active #Line_5 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 0.75s;
+}
+
+.active #Line_6 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 0.9s;
+}
+
+.active #Line_7 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 1.05s;
+}
+
+.active #Line_8 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 1.2s;
+}
+
+.active #Line_9 {
+    animation: audio-pulse 1s infinite;
+    animation-delay: 1.35s;
+}
+
+@keyframes audio-pulse {
+    0% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+    50% {
+        -webkit-transform: scaleY(0.7);
+        transform: scaleY(0.7);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+    100% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+}
